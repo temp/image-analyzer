@@ -21,11 +21,16 @@ use Temp\ImageAnalyzer\ImageInfo;
 interface DriverInterface
 {
     /**
+     * @return bool
+     */
+    public function available();
+
+    /**
      * @param string $filename
      *
-     * @return boolean
+     * @return bool
      */
-    public function isAvailable($filename = null);
+    public function supports($filename);
 
     /**
      * @param string $filename

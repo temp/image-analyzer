@@ -11,6 +11,7 @@
 
 namespace Temp\ImageAnalyzer\Driver;
 
+use Temp\ImageAnalyzer\Exception\UnsupportedFileException;
 use Temp\ImageAnalyzer\ImageInfo;
 
 /**
@@ -23,7 +24,7 @@ class ImagickDriver implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    public function isAvailable($filename = null)
+    public function available()
     {
         return extension_loaded('imagick');
     }
@@ -31,9 +32,28 @@ class ImagickDriver implements DriverInterface
     /**
      * {@inheritdoc}
      */
+    public function supports($filename)
+    {
+        try {
+            new \Imagick($filename);
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function analyze($filename)
     {
-        $imagick = new \Imagick($filename);
+        try {
+            $imagick = new \Imagick($filename);
+        } catch (\Exception $e) {
+            throw new UnsupportedFileException("File type not supported.", 0, $e);
+        }
+
         $imageInfo = new ImageInfo();
 
         $identify = $imagick->identifyImage(false);

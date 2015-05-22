@@ -17,92 +17,16 @@ use Temp\ImageAnalyzer\Driver\GdDriver;
  * GD driver test
  *
  * @author Stephan Wentz <stephan@wentz.it>
+ *
+ * @requires extension gd
  */
 class GdDriverTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    public function testAvailable()
     {
-        if (!extension_loaded('gd')) {
-            $this->markTestSkipped('gd extension is not installed');
-        }
-    }
+        $driver = new GdDriver();
 
-    public function imageProvider()
-    {
-        return array(
-            array(__DIR__ . '/../fixture/test.jpg', array(
-                'analyzer'    => 'Temp\ImageAnalyzer\Driver\GdDriver',
-                'colors'      => '0',
-                'colorspace'  => 'RGB',
-                'compression' => null,
-                'depth'       => '8',
-                'format'      => 'JPEG',
-                'height'      => '350',
-                'profiles'    => null,
-                'quality'     => null,
-                'ratioX'      => '1.3314285714285714',
-                'ratioY'      => '0.75107296137339052',
-                'resolutionX' => null,
-                'resolutionY' => null,
-                'type'        => 'TRUECOLOR',
-                'units'       => null,
-                'width'       => '466',
-            )),
-            array(__DIR__ . '/../fixture/test_cmyk.jpg', array(
-                'analyzer'    => 'Temp\ImageAnalyzer\Driver\GdDriver',
-                'colors'      => '0',
-                'colorspace'  => 'CMYK',
-                'compression' => null,
-                'depth'       => '8',
-                'format'      => 'JPEG',
-                'height'      => '350',
-                'profiles'    => null,
-                'quality'     => null,
-                'ratioX'      => '1.3314285714285714',
-                'ratioY'      => '0.75107296137339052',
-                'resolutionX' => null,
-                'resolutionY' => null,
-                'type'        => 'TRUECOLOR',
-                'units'       => null,
-                'width'       => '466',
-            )),
-            array(__DIR__ . '/../fixture/test.gif', array(
-                'analyzer'    => 'Temp\ImageAnalyzer\Driver\GdDriver',
-                'colors'      => '256',
-                'colorspace'  => 'RGB',
-                'compression' => null,
-                'depth'       => '8',
-                'format'      => 'GIF',
-                'height'      => '350',
-                'profiles'    => null,
-                'quality'     => null,
-                'ratioX'      => '1.3314285714285714',
-                'ratioY'      => '0.75107296137339052',
-                'resolutionX' => null,
-                'resolutionY' => null,
-                'type'        => 'PALETTE',
-                'units'       => null,
-                'width'       => '466',
-            )),
-            array(__DIR__ . '/../fixture/test.png', array(
-                'analyzer'    => 'Temp\ImageAnalyzer\Driver\GdDriver',
-                'colors'      => '0',
-                'colorspace'  => 'RGB',
-                'compression' => null,
-                'depth'       => '8',
-                'format'      => 'PNG',
-                'height'      => '350',
-                'profiles'    => null,
-                'quality'     => null,
-                'ratioX'      => '1.3314285714285714',
-                'ratioY'      => '0.75107296137339052',
-                'resolutionX' => null,
-                'resolutionY' => null,
-                'type'        => 'TRUECOLOR',
-                'units'       => null,
-                'width'       => '466',
-            )),
-        );
+        $this->assertTrue($driver->available());
     }
 
     /**
@@ -111,7 +35,37 @@ class GdDriverTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider imageProvider
      */
-    public function testDriver($file, $expected)
+    public function testSupportsWithSupportedFiles($file, $expected)
+    {
+        $driver = new GdDriver();
+
+        $this->assertTrue($driver->supports($file));
+    }
+
+    public function testSupportsWithUnsupportedFile()
+    {
+        $driver = new GdDriver();
+
+        $this->assertFalse($driver->supports(__DIR__ . '/../fixture/file.unknown'));
+    }
+
+    /**
+     * @expectedException \Temp\ImageAnalyzer\Exception\UnsupportedFileException
+     */
+    public function testAnalyzeThrowsExceptionOnUnsupportedFile()
+    {
+        $driver = new GdDriver();
+
+        $driver->analyze(__DIR__ . '/../fixture/file.unknown');
+    }
+
+    /**
+     * @param string $file
+     * @param array  $expected
+     *
+     * @dataProvider imageProvider
+     */
+    public function testAnalyzeImageFiles($file, $expected)
     {
         $driver = new GdDriver();
         $imageInfo = $driver->analyze($file);
@@ -132,5 +86,83 @@ class GdDriverTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected['type'], $imageInfo->getType());
         $this->assertEquals($expected['units'], $imageInfo->getUnits());
         $this->assertEquals($expected['width'], $imageInfo->getWidth());
+    }
+
+    public function imageProvider()
+    {
+        return array(
+            array(__DIR__ . '/../fixture/file.jpg', array(
+                'analyzer'    => 'Temp\ImageAnalyzer\Driver\GdDriver',
+                'colors'      => '0',
+                'colorspace'  => 'RGB',
+                'compression' => null,
+                'depth'       => '8',
+                'format'      => 'JPEG',
+                'height'      => '350',
+                'profiles'    => null,
+                'quality'     => null,
+                'ratioX'      => '1.3314285714285714',
+                'ratioY'      => '0.75107296137339052',
+                'resolutionX' => null,
+                'resolutionY' => null,
+                'type'        => 'TRUECOLOR',
+                'units'       => null,
+                'width'       => '466',
+            )),
+            array(__DIR__ . '/../fixture/file_cmyk.jpg', array(
+                'analyzer'    => 'Temp\ImageAnalyzer\Driver\GdDriver',
+                'colors'      => '0',
+                'colorspace'  => 'CMYK',
+                'compression' => null,
+                'depth'       => '8',
+                'format'      => 'JPEG',
+                'height'      => '350',
+                'profiles'    => null,
+                'quality'     => null,
+                'ratioX'      => '1.3314285714285714',
+                'ratioY'      => '0.75107296137339052',
+                'resolutionX' => null,
+                'resolutionY' => null,
+                'type'        => 'TRUECOLOR',
+                'units'       => null,
+                'width'       => '466',
+            )),
+            array(__DIR__ . '/../fixture/file.gif', array(
+                'analyzer'    => 'Temp\ImageAnalyzer\Driver\GdDriver',
+                'colors'      => '256',
+                'colorspace'  => 'RGB',
+                'compression' => null,
+                'depth'       => '8',
+                'format'      => 'GIF',
+                'height'      => '350',
+                'profiles'    => null,
+                'quality'     => null,
+                'ratioX'      => '1.3314285714285714',
+                'ratioY'      => '0.75107296137339052',
+                'resolutionX' => null,
+                'resolutionY' => null,
+                'type'        => 'PALETTE',
+                'units'       => null,
+                'width'       => '466',
+            )),
+            array(__DIR__ . '/../fixture/file.png', array(
+                'analyzer'    => 'Temp\ImageAnalyzer\Driver\GdDriver',
+                'colors'      => '0',
+                'colorspace'  => 'RGB',
+                'compression' => null,
+                'depth'       => '8',
+                'format'      => 'PNG',
+                'height'      => '350',
+                'profiles'    => null,
+                'quality'     => null,
+                'ratioX'      => '1.3314285714285714',
+                'ratioY'      => '0.75107296137339052',
+                'resolutionX' => null,
+                'resolutionY' => null,
+                'type'        => 'TRUECOLOR',
+                'units'       => null,
+                'width'       => '466',
+            )),
+        );
     }
 }

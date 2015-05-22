@@ -11,6 +11,7 @@
 
 namespace Temp\ImageAnalyzer\Driver;
 
+use Temp\ImageAnalyzer\Exception\UnsupportedFileException;
 use Temp\ImageAnalyzer\ImageInfo;
 
 /**
@@ -23,7 +24,7 @@ class GdDriver implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    public function isAvailable($filename = null)
+    public function available()
     {
         return extension_loaded('gd');
     }
@@ -31,9 +32,21 @@ class GdDriver implements DriverInterface
     /**
      * {@inheritdoc}
      */
+    public function supports($filename)
+    {
+        return @getimagesize($filename) !== false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function analyze($filename)
     {
-        $imageSize = getimagesize($filename);
+        $imageSize = @getimagesize($filename);
+        if ($imageSize === false) {
+            throw new UnsupportedFileException("File type not supported.");
+        }
+
         $imageInfo = new ImageInfo();
 
         $type = null;

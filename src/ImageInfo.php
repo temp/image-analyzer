@@ -12,7 +12,7 @@
 namespace Temp\ImageAnalyzer;
 
 /**
- * Image analysis result
+ * Image info
  *
  * @author Stephan Wentz <stephan@wentz.it>
  */

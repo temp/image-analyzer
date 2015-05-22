@@ -17,92 +17,18 @@ use Temp\ImageAnalyzer\Driver\GmagickDriver;
  * Gmagick driver test
  *
  * @author Stephan Wentz <stephan@wentz.it>
+ *
+ * @requires extension gmagick
  */
 class GmagickDriverTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    public function testAvailable()
     {
-        if (!extension_loaded('gmagick')) {
-            $this->markTestSkipped('gmagick extension is not installed');
-        }
-    }
+        $driver = new GmagickDriver();
 
-    public function imageProvider()
-    {
-        return array(
-            array(__DIR__ . '/../fixture/test.jpg', array(
-                'analyzer'    => 'Temp\ImageAnalyzer\Driver\GmagickDriver',
-                'colors'      => '69955',
-                'colorspace'  => 'SRGB',
-                'compression' => 'JPEG',
-                'depth'       => '8',
-                'format'      => 'JPEG',
-                'height'      => '350',
-                'profiles'    => array(),
-                'quality'     => '86',
-                'ratioX'      => '1.3314285714285714',
-                'ratioY'      => '0.75107296137339052',
-                'resolutionX' => '100.0',
-                'resolutionY' => '100.0',
-                'type'        => 'TRUECOLOR',
-                'units'       => '0',
-                'width'       => '466',
-            )),
-            array(__DIR__ . '/../fixture/test_cmyk.jpg', array(
-                'analyzer'    => 'Temp\ImageAnalyzer\Driver\GmagickDriver',
-                'colors'      => '114790',
-                'colorspace'  => 'CMYK',
-                'compression' => 'JPEG',
-                'depth'       => '8',
-                'format'      => 'JPEG',
-                'height'      => '350',
-                'profiles'    => array(),
-                'quality'     => '91',
-                'ratioX'      => '1.3314285714285714',
-                'ratioY'      => '0.75107296137339052',
-                'resolutionX' => '0.0',
-                'resolutionY' => '0.0',
-                'type'        => 'COLORSEPARATION',
-                'units'       => '0',
-                'width'       => '466',
-            )),
-            array(__DIR__ . '/../fixture/test.gif', array(
-                'analyzer'    => 'Temp\ImageAnalyzer\Driver\GmagickDriver',
-                'colors'      => '255',
-                'colorspace'  => 'SRGB',
-                'compression' => 'LZW',
-                'depth'       => '8',
-                'format'      => 'GIF',
-                'height'      => '350',
-                'profiles'    => array(),
-                'quality'     => '0',
-                'ratioX'      => '1.3314285714285714',
-                'ratioY'      => '0.75107296137339052',
-                'resolutionX' => '0',
-                'resolutionY' => '0',
-                'type'        => 'PALETTE',
-                'units'       => '0',
-                'width'       => '466',
-            )),
-            array(__DIR__ . '/../fixture/test.png', array(
-                'analyzer'    => 'Temp\ImageAnalyzer\Driver\GmagickDriver',
-                'colors'      => '69955',
-                'colorspace'  => 'SRGB',
-                'compression' => 'Zip',
-                'depth'       => '8',
-                'format'      => 'PNG',
-                'height'      => '350',
-                'profiles'    => array(),
-                'quality'     => '0',
-                'ratioX'      => '1.3314285714285714',
-                'ratioY'      => '0.75107296137339052',
-                'resolutionX' => '100.0',
-                'resolutionY' => '100.0',
-                'type'        => 'TRUECOLOR',
-                'units'       => '0',
-                'width'       => '466',
-            )),
-        );
+        if (!$driver->available()) {
+            $this->markTestSkipped('gd extension not loaded.');
+        }
     }
 
     /**
@@ -111,7 +37,37 @@ class GmagickDriverTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider imageProvider
      */
-    public function testDriver($file, $expected)
+    public function testSupportsWithSupportedFiles($file, $expected)
+    {
+        $driver = new GmagickDriver();
+
+        $this->assertTrue($driver->supports($file));
+    }
+
+    public function testSupportsWithUnsupportedFile()
+    {
+        $driver = new GmagickDriver();
+
+        $this->assertFalse($driver->supports(__DIR__ . '/../fixture/file.unknown'));
+    }
+
+    /**
+     * @expectedException \Temp\ImageAnalyzer\Exception\UnsupportedFileException
+     */
+    public function testAnalyzeThrowsExceptionOnUnsupportedFile()
+    {
+        $driver = new GmagickDriver();
+
+        $driver->analyze(__DIR__ . '/../fixture/file.unknown');
+    }
+
+    /**
+     * @param string $file
+     * @param array  $expected
+     *
+     * @dataProvider imageProvider
+     */
+    public function testAnalyzeImageFiles($file, $expected)
     {
         $driver = new GmagickDriver();
         $imageInfo = $driver->analyze($file);
@@ -132,5 +88,83 @@ class GmagickDriverTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected['type'], $imageInfo->getType());
         $this->assertEquals($expected['units'], $imageInfo->getUnits());
         $this->assertEquals($expected['width'], $imageInfo->getWidth());
+    }
+
+    public function imageProvider()
+    {
+        return array(
+            array(__DIR__ . '/../fixture/file.jpg', array(
+                'analyzer'    => 'Temp\ImageAnalyzer\Driver\GmagickDriver',
+                'colors'      => '69955',
+                'colorspace'  => 'SRGB',
+                'compression' => 'JPEG',
+                'depth'       => '8',
+                'format'      => 'JPEG',
+                'height'      => '350',
+                'profiles'    => array(),
+                'quality'     => '86',
+                'ratioX'      => '1.3314285714285714',
+                'ratioY'      => '0.75107296137339052',
+                'resolutionX' => '100.0',
+                'resolutionY' => '100.0',
+                'type'        => 'TRUECOLOR',
+                'units'       => '0',
+                'width'       => '466',
+            )),
+            array(__DIR__ . '/../fixture/file_cmyk.jpg', array(
+                'analyzer'    => 'Temp\ImageAnalyzer\Driver\GmagickDriver',
+                'colors'      => '114790',
+                'colorspace'  => 'CMYK',
+                'compression' => 'JPEG',
+                'depth'       => '8',
+                'format'      => 'JPEG',
+                'height'      => '350',
+                'profiles'    => array(),
+                'quality'     => '91',
+                'ratioX'      => '1.3314285714285714',
+                'ratioY'      => '0.75107296137339052',
+                'resolutionX' => '0.0',
+                'resolutionY' => '0.0',
+                'type'        => 'COLORSEPARATION',
+                'units'       => '0',
+                'width'       => '466',
+            )),
+            array(__DIR__ . '/../fixture/file.gif', array(
+                'analyzer'    => 'Temp\ImageAnalyzer\Driver\GmagickDriver',
+                'colors'      => '255',
+                'colorspace'  => 'SRGB',
+                'compression' => 'LZW',
+                'depth'       => '8',
+                'format'      => 'GIF',
+                'height'      => '350',
+                'profiles'    => array(),
+                'quality'     => '0',
+                'ratioX'      => '1.3314285714285714',
+                'ratioY'      => '0.75107296137339052',
+                'resolutionX' => '0',
+                'resolutionY' => '0',
+                'type'        => 'PALETTE',
+                'units'       => '0',
+                'width'       => '466',
+            )),
+            array(__DIR__ . '/../fixture/file.png', array(
+                'analyzer'    => 'Temp\ImageAnalyzer\Driver\GmagickDriver',
+                'colors'      => '69955',
+                'colorspace'  => 'SRGB',
+                'compression' => 'Zip',
+                'depth'       => '8',
+                'format'      => 'PNG',
+                'height'      => '350',
+                'profiles'    => array(),
+                'quality'     => '0',
+                'ratioX'      => '1.3314285714285714',
+                'ratioY'      => '0.75107296137339052',
+                'resolutionX' => '100.0',
+                'resolutionY' => '100.0',
+                'type'        => 'TRUECOLOR',
+                'units'       => '0',
+                'width'       => '466',
+            )),
+        );
     }
 }

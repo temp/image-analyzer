@@ -11,6 +11,7 @@
 
 namespace Temp\ImageAnalyzer\Driver;
 
+use Temp\ImageAnalyzer\Exception\UnsupportedFileException;
 use Temp\ImageAnalyzer\ImageInfo;
 
 /**
@@ -23,7 +24,7 @@ class GmagickDriver implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    public function isAvailable($filename = null)
+    public function available()
     {
         return extension_loaded('gmagick');
     }
@@ -31,10 +32,29 @@ class GmagickDriver implements DriverInterface
     /**
      * {@inheritdoc}
      */
+    public function supports($filename)
+    {
+        try {
+            new \Gmagick($filename);
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function analyze($filename)
     {
-        $gmagick = new \Gmagick($filename);
         $imageInfo = new ImageInfo();
+
+        try {
+            $gmagick = new \Gmagick($filename);
+        } catch (\Exception $e) {
+            throw new UnsupportedFileException("File type not supported.", 0, $e);
+        }
 
         $imageInfo
             ->setAnalyzer(get_class($this))
