@@ -11,6 +11,7 @@
 
 namespace Temp\ImageAnalyzer\Driver;
 
+use Imagick;
 use Temp\ImageAnalyzer\Exception\UnsupportedFileException;
 use Temp\ImageAnalyzer\ImageInfo;
 
@@ -35,7 +36,7 @@ class ImagickDriver implements DriverInterface
     public function supports($filename)
     {
         try {
-            new \Imagick($filename);
+            new Imagick($filename);
         } catch (\Exception $e) {
             return false;
         }
@@ -49,7 +50,7 @@ class ImagickDriver implements DriverInterface
     public function analyze($filename)
     {
         try {
-            $imagick = new \Imagick($filename);
+            $imagick = new Imagick($filename);
         } catch (\Exception $e) {
             throw new UnsupportedFileException("File type not supported.", 0, $e);
         }
@@ -83,11 +84,11 @@ class ImagickDriver implements DriverInterface
     private function mapUnits($units)
     {
         switch ($units) {
-            case \Imagick::RESOLUTION_PIXELSPERCENTIMETER:
+            case Imagick::RESOLUTION_PIXELSPERCENTIMETER:
                 return 'PixelsPerCentimeter';
-            case \Imagick::RESOLUTION_PIXELSPERINCH:
+            case Imagick::RESOLUTION_PIXELSPERINCH:
                 return 'PixelsPerInch';
-            case \Imagick::RESOLUTION_UNDEFINED:
+            case Imagick::RESOLUTION_UNDEFINED:
                 return null;
         }
     }
@@ -101,27 +102,27 @@ class ImagickDriver implements DriverInterface
     {
 
         switch ($type) {
-            case \Imagick::IMGTYPE_BILEVEL:
+            case Imagick::IMGTYPE_BILEVEL:
                 return 'BILEVEL';
-            case \Imagick::IMGTYPE_GRAYSCALE:
+            case Imagick::IMGTYPE_GRAYSCALE:
                 return 'GRAYSCALE';
-            case \Imagick::IMGTYPE_GRAYSCALEMATTE:
+            case Imagick::IMGTYPE_GRAYSCALEMATTE:
                 return 'GRAYSCALEMATTE';
-            case \Imagick::IMGTYPE_PALETTE:
+            case Imagick::IMGTYPE_PALETTE:
                 return 'PALETTE';
-            case \Imagick::IMGTYPE_PALETTEMATTE:
+            case Imagick::IMGTYPE_PALETTEMATTE:
                 return 'PALETTEMATTE';
-            case \Imagick::IMGTYPE_TRUECOLOR:
+            case Imagick::IMGTYPE_TRUECOLOR:
                 return 'TRUECOLOR';
-            case \Imagick::IMGTYPE_TRUECOLORMATTE:
+            case Imagick::IMGTYPE_TRUECOLORMATTE:
                 return 'TRUECOLORMATTE';
-            case \Imagick::IMGTYPE_COLORSEPARATION:
+            case Imagick::IMGTYPE_COLORSEPARATION:
                 return 'COLORSEPARATION';
-            case \Imagick::IMGTYPE_COLORSEPARATIONMATTE:
+            case Imagick::IMGTYPE_COLORSEPARATIONMATTE:
                 return 'COLORSEPARATIONMATTE';
-            case \Imagick::IMGTYPE_OPTIMIZE:
+            case Imagick::IMGTYPE_OPTIMIZE:
                 return 'OPTIMIZE';
-            case \Imagick::IMGTYPE_UNDEFINED:
+            case Imagick::IMGTYPE_UNDEFINED:
             default:
                 return null;
         }
@@ -135,47 +136,47 @@ class ImagickDriver implements DriverInterface
     private function mapColorspace($colorspace)
     {
         switch ($colorspace) {
-            case \Imagick::COLORSPACE_CMY:
+            case Imagick::COLORSPACE_CMY:
                 return 'CMY';
-            case \Imagick::COLORSPACE_CMYK:
+            case Imagick::COLORSPACE_CMYK:
                 return 'CMYK';
-            case \Imagick::COLORSPACE_GRAY:
+            case Imagick::COLORSPACE_GRAY:
                 return 'GRAY';
-            case \Imagick::COLORSPACE_HSB:
+            case Imagick::COLORSPACE_HSB:
                 return 'HSB';
-            case \Imagick::COLORSPACE_HSL:
+            case Imagick::COLORSPACE_HSL:
                 return 'HSL';
-            case \Imagick::COLORSPACE_HWB:
+            case Imagick::COLORSPACE_HWB:
                 return 'HWB';
-            case \Imagick::COLORSPACE_LAB:
+            case Imagick::COLORSPACE_LAB:
                 return 'LAB';
-            case \Imagick::COLORSPACE_LOG:
+            case Imagick::COLORSPACE_LOG:
                 return 'LOG';
-            case \Imagick::COLORSPACE_OHTA:
+            case Imagick::COLORSPACE_OHTA:
                 return 'OHTA';
-            case \Imagick::COLORSPACE_REC601LUMA:
+            case Imagick::COLORSPACE_REC601LUMA:
                 return 'REC601LUMA';
-            case \Imagick::COLORSPACE_RGB:
+            case Imagick::COLORSPACE_RGB:
                 return 'RGB';
-            case \Imagick::COLORSPACE_REC709LUMA:
+            case Imagick::COLORSPACE_REC709LUMA:
                 return 'REC709LUMA';
-            case \Imagick::COLORSPACE_SRGB:
+            case Imagick::COLORSPACE_SRGB:
                 return 'SRGB';
-            case \Imagick::COLORSPACE_TRANSPARENT:
+            case Imagick::COLORSPACE_TRANSPARENT:
                 return 'TRANSPARENT';
-            case \Imagick::COLORSPACE_XYZ:
+            case Imagick::COLORSPACE_XYZ:
                 return 'XYZ';
-            case \Imagick::COLORSPACE_YCBCR:
+            case Imagick::COLORSPACE_YCBCR:
                 return 'YCBCR';
-            case \Imagick::COLORSPACE_YCC:
+            case Imagick::COLORSPACE_YCC:
                 return 'YCC';
-            case \Imagick::COLORSPACE_YIQ:
+            case Imagick::COLORSPACE_YIQ:
                 return 'YIQ';
-            case \Imagick::COLORSPACE_YPBPR:
+            case Imagick::COLORSPACE_YPBPR:
                 return 'YPBPR';
-            case \Imagick::COLORSPACE_YUV:
+            case Imagick::COLORSPACE_YUV:
                 return 'YUV';
-            case \Imagick::COLORSPACE_UNDEFINED:
+            case Imagick::COLORSPACE_UNDEFINED:
             default:
                 return null;
         }

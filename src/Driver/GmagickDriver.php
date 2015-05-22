@@ -11,6 +11,7 @@
 
 namespace Temp\ImageAnalyzer\Driver;
 
+use Gmagick;
 use Temp\ImageAnalyzer\Exception\UnsupportedFileException;
 use Temp\ImageAnalyzer\ImageInfo;
 
@@ -35,7 +36,7 @@ class GmagickDriver implements DriverInterface
     public function supports($filename)
     {
         try {
-            new \Gmagick($filename);
+            new Gmagick($filename);
         } catch (\Exception $e) {
             return false;
         }
@@ -51,7 +52,7 @@ class GmagickDriver implements DriverInterface
         $imageInfo = new ImageInfo();
 
         try {
-            $gmagick = new \Gmagick($filename);
+            $gmagick = new Gmagick($filename);
         } catch (\Exception $e) {
             throw new UnsupportedFileException("File type not supported.", 0, $e);
         }
@@ -81,11 +82,11 @@ class GmagickDriver implements DriverInterface
     private function mapUnits($units)
     {
         switch ($units) {
-            case \Gmagick::RESOLUTION_PIXELSPERCENTIMETER:
+            case Gmagick::RESOLUTION_PIXELSPERCENTIMETER:
                 return 'PixelsPerCentimeter';
-            case \Gmagick::RESOLUTION_PIXELSPERINCH:
+            case Gmagick::RESOLUTION_PIXELSPERINCH:
                 return 'PixelsPerInch';
-            case \Gmagick::RESOLUTION_UNDEFINED:
+            case Gmagick::RESOLUTION_UNDEFINED:
                 return null;
         }
     }
@@ -98,27 +99,27 @@ class GmagickDriver implements DriverInterface
     private function mapType($type)
     {
         switch ($type) {
-            case \Imagick::IMGTYPE_BILEVEL:
+            case Gmagick::IMGTYPE_BILEVEL:
                 return 'BILEVEL';
-            case \Imagick::IMGTYPE_GRAYSCALE:
+            case Gmagick::IMGTYPE_GRAYSCALE:
                 return 'GRAYSCALE';
-            case \Imagick::IMGTYPE_GRAYSCALEMATTE:
+            case Gmagick::IMGTYPE_GRAYSCALEMATTE:
                 return 'GRAYSCALEMATTE';
-            case \Imagick::IMGTYPE_PALETTE:
+            case Gmagick::IMGTYPE_PALETTE:
                 return 'PALETTE';
-            case \Imagick::IMGTYPE_PALETTEMATTE:
+            case Gmagick::IMGTYPE_PALETTEMATTE:
                 return 'PALETTEMATTE';
-            case \Imagick::IMGTYPE_TRUECOLOR:
+            case Gmagick::IMGTYPE_TRUECOLOR:
                 return 'TRUECOLOR';
-            case \Imagick::IMGTYPE_TRUECOLORMATTE:
+            case Gmagick::IMGTYPE_TRUECOLORMATTE:
                 return 'TRUECOLORMATTE';
-            case \Imagick::IMGTYPE_COLORSEPARATION:
+            case Gmagick::IMGTYPE_COLORSEPARATION:
                 return 'COLORSEPARATION';
-            case \Imagick::IMGTYPE_COLORSEPARATIONMATTE:
+            case Gmagick::IMGTYPE_COLORSEPARATIONMATTE:
                 return 'COLORSEPARATIONMATTE';
-            case \Imagick::IMGTYPE_OPTIMIZE:
+            case Gmagick::IMGTYPE_OPTIMIZE:
                 return 'OPTIMIZE';
-            case \Imagick::IMGTYPE_UNDEFINED:
+            case Gmagick::IMGTYPE_UNDEFINED:
             default:
                 return 'UNDEFINED';
         }
@@ -132,47 +133,47 @@ class GmagickDriver implements DriverInterface
     private function mapColorspace($colorspace)
     {
         switch ($colorspace) {
-            case \Gmagick::COLORSPACE_CMY:
+            case Gmagick::COLORSPACE_CMY:
                 return 'CMY';
-            case \Gmagick::COLORSPACE_CMYK:
+            case Gmagick::COLORSPACE_CMYK:
                 return 'CMYK';
-            case \Gmagick::COLORSPACE_GRAY:
+            case Gmagick::COLORSPACE_GRAY:
                 return 'GRAY';
-            case \Gmagick::COLORSPACE_HSB:
+            case Gmagick::COLORSPACE_HSB:
                 return 'HSB';
-            case \Gmagick::COLORSPACE_HSL:
+            case Gmagick::COLORSPACE_HSL:
                 return 'HSL';
-            case \Gmagick::COLORSPACE_HWB:
+            case Gmagick::COLORSPACE_HWB:
                 return 'HWB';
-            case \Gmagick::COLORSPACE_LAB:
+            case Gmagick::COLORSPACE_LAB:
                 return 'LAB';
-            case \Gmagick::COLORSPACE_LOG:
+            case Gmagick::COLORSPACE_LOG:
                 return 'LOG';
-            case \Gmagick::COLORSPACE_OHTA:
+            case Gmagick::COLORSPACE_OHTA:
                 return 'OHTA';
-            case \Gmagick::COLORSPACE_REC601LUMA:
+            case Gmagick::COLORSPACE_REC601LUMA:
                 return 'REC601LUMA';
-            case \Gmagick::COLORSPACE_RGB:
+            case Gmagick::COLORSPACE_RGB:
                 return 'RGB';
-            case \Gmagick::COLORSPACE_REC709LUMA:
+            case Gmagick::COLORSPACE_REC709LUMA:
                 return 'REC709LUMA';
-            case \Gmagick::COLORSPACE_SRGB:
+            case Gmagick::COLORSPACE_SRGB:
                 return 'SRGB';
-            case \Gmagick::COLORSPACE_TRANSPARENT:
+            case Gmagick::COLORSPACE_TRANSPARENT:
                 return 'TRANSPARENT';
-            case \Gmagick::COLORSPACE_XYZ:
+            case Gmagick::COLORSPACE_XYZ:
                 return 'XYZ';
-            case \Gmagick::COLORSPACE_YCBCR:
+            case Gmagick::COLORSPACE_YCBCR:
                 return 'YCBCR';
-            case \Gmagick::COLORSPACE_YCC:
+            case Gmagick::COLORSPACE_YCC:
                 return 'YCC';
-            case \Gmagick::COLORSPACE_YIQ:
+            case Gmagick::COLORSPACE_YIQ:
                 return 'YIQ';
-            case \Gmagick::COLORSPACE_YPBPR:
+            case Gmagick::COLORSPACE_YPBPR:
                 return 'YPBPR';
-            case \Gmagick::COLORSPACE_YUV:
+            case Gmagick::COLORSPACE_YUV:
                 return 'YUV';
-            case \Gmagick::COLORSPACE_UNDEFINED:
+            case Gmagick::COLORSPACE_UNDEFINED:
             default:
                 return 'UNDEFINED';
         }
