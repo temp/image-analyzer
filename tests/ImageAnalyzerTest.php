@@ -21,6 +21,20 @@ use Temp\ImageAnalyzer\ImageInfo;
  */
 class ImageAnalyzerTest extends \PHPUnit_Framework_TestCase
 {
+    public function testSupports()
+    {
+        $info = new ImageInfo();
+
+        $driver = $this->prophesize('Temp\ImageAnalyzer\Driver\DriverInterface');
+        $driver->supports('test')->willReturn(true);
+
+        $analyzer = new ImageAnalyzer($driver->reveal());
+
+        $result = $analyzer->supports('test');
+
+        $this->assertTrue($result);
+    }
+
     public function testAnalyze()
     {
         $info = new ImageInfo();

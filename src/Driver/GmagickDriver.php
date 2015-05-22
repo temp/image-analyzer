@@ -68,8 +68,7 @@ class GmagickDriver implements DriverInterface
             ->setColorspace($this->mapColorspace($gmagick->getImageColorspace()))
             ->setDepth($gmagick->getImageDepth())
             ->setCompression(null)
-            ->setQuality(null)
-            ->setProfiles($gmagick->getImageProfiles('*', false));
+            ->setQuality(null);
 
         return $imageInfo;
     }
@@ -133,26 +132,18 @@ class GmagickDriver implements DriverInterface
     private function mapColorspace($colorspace)
     {
         switch ($colorspace) {
-            case Gmagick::COLORSPACE_CMY:
-                return 'CMY';
             case Gmagick::COLORSPACE_CMYK:
                 return 'CMYK';
             case Gmagick::COLORSPACE_GRAY:
                 return 'GRAY';
-            case Gmagick::COLORSPACE_HSB:
-                return 'HSB';
             case Gmagick::COLORSPACE_HSL:
                 return 'HSL';
             case Gmagick::COLORSPACE_HWB:
                 return 'HWB';
             case Gmagick::COLORSPACE_LAB:
                 return 'LAB';
-            case Gmagick::COLORSPACE_LOG:
-                return 'LOG';
             case Gmagick::COLORSPACE_OHTA:
                 return 'OHTA';
-            case Gmagick::COLORSPACE_REC601LUMA:
-                return 'REC601LUMA';
             case Gmagick::COLORSPACE_RGB:
                 return 'RGB';
             case Gmagick::COLORSPACE_REC709LUMA:
