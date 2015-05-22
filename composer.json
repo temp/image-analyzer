@@ -1,5 +1,5 @@
 {
-    "name": "brainbits/image-analyzer",
+    "name": "temp/image-analyzer",
     "type": "library",
     "description": "Image analyzer",
     "keywords": ["image", "info", "analyzer", "imagick"],
