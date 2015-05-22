@@ -34,6 +34,16 @@ class ImageAnalyzer
     }
 
     /**
+     * @param string $filename
+     *
+     * @return bool
+     */
+    public function supports($filename)
+    {
+        return $this->driver->supports($filename);
+    }
+
+    /**
      * @parm string $filename
      *
      * @return ImageInfo
