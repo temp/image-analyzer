@@ -52,6 +52,7 @@ class GdDriver implements DriverInterface
         $type = null;
         $colors = null;
         if (in_array($imageSize[2], array(IMAGETYPE_JPEG, IMAGETYPE_GIF, IMAGETYPE_PNG))) {
+            $gd = null;
             if ($imageSize[2] === IMAGETYPE_JPEG) {
                 $gd = imagecreatefromjpeg($filename);
             } elseif ($imageSize[2] === IMAGETYPE_GIF) {
@@ -59,8 +60,10 @@ class GdDriver implements DriverInterface
             } elseif ($imageSize[2] === IMAGETYPE_PNG) {
                 $gd = imagecreatefrompng($filename);
             }
-            $type = imageistruecolor($gd) ? 'TRUECOLOR' : 'PALETTE';
-            $colors = imagecolorstotal($gd);
+            if ($gd) {
+                $type = imageistruecolor($gd) ? 'TRUECOLOR' : 'PALETTE';
+                $colors = imagecolorstotal($gd);
+            }
         }
 
         $imageInfo
