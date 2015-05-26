@@ -69,7 +69,7 @@ class ImagickDriver implements DriverInterface
             ->setType($this->mapType($imagick->getImageType()))
             ->setColorspace($this->mapColorspace($imagick->getImageColorspace()))
             ->setDepth($imagick->getImageDepth())
-            ->setCompression($identify['compression'])
+            ->setCompression(isset($identify['compression']) ? $identify['compression'] : null)
             ->setQuality($imagick->getImageCompressionQuality())
             ->setProfiles($imagick->getImageProfiles('*', false));
 
