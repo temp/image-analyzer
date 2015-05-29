@@ -92,48 +92,33 @@ class GdDriver implements DriverInterface
      */
     private function mapFormat($type)
     {
-        switch ($type) {
-            case IMAGETYPE_BMP:
-                return 'BMP';
-            case IMAGETYPE_COUNT:
-                return 'COUNT';
-            case IMAGETYPE_GIF:
-                return 'GIF';
-            case IMAGETYPE_ICO:
-                return 'ICO';
-            case IMAGETYPE_IFF:
-                return 'IFF';
-            case IMAGETYPE_JB2:
-                return 'JB2';
-            case IMAGETYPE_JP2:
-                return 'JP2';
-            case IMAGETYPE_JPC:
-                return 'JPC';
-            case IMAGETYPE_JPEG:
-                return 'JPEG';
-            case IMAGETYPE_JPEG2000:
-                return 'JPEG2000';
-            case IMAGETYPE_JPX:
-                return 'JPX';
-            case IMAGETYPE_PNG:
-                return 'PNG';
-            case IMAGETYPE_PSD:
-                return 'PSD';
-            case IMAGETYPE_SWC:
-                return 'SWC';
-            case IMAGETYPE_SWF:
-                return 'SWF';
-            case IMAGETYPE_TIFF_II:
-                return 'TIFF_II';
-            case IMAGETYPE_TIFF_MM:
-                return 'TIFF_MM';
-            case IMAGETYPE_WBMP:
-                return 'WBMP';
-            case IMAGETYPE_XBM:
-                return 'XBM';
-            case IMAGETYPE_UNKNOWN:
-            default:
-                return 'UNKNOWN';
+        $types = array(
+            IMAGETYPE_BMP      => 'BMP',
+            IMAGETYPE_COUNT    => 'COUNT',
+            IMAGETYPE_GIF      => 'GIF',
+            IMAGETYPE_ICO      => 'ICON',
+            IMAGETYPE_IFF      => 'IFF',
+            IMAGETYPE_JB2      => 'JB2',
+            IMAGETYPE_JP2      => 'JP2',
+            IMAGETYPE_JPC      => 'JPC',
+            IMAGETYPE_JPEG     => 'JPEG',
+            IMAGETYPE_JPEG2000 => 'JPEG2000',
+            IMAGETYPE_JPX      => 'JPX',
+            IMAGETYPE_PNG      => 'PNG',
+            IMAGETYPE_PSD      => 'PSD',
+            IMAGETYPE_SWC      => 'SWC',
+            IMAGETYPE_SWF      => 'SWF',
+            IMAGETYPE_TIFF_II  => 'TIFF_II',
+            IMAGETYPE_TIFF_MM  => 'TIFF_MM',
+            IMAGETYPE_WBMP     => 'WBMP',
+            IMAGETYPE_XBM      => 'XBM',
+            IMAGETYPE_UNKNOWN  => 'UNKNOWN',
+        );
+
+        if (!isset($types[$type])) {
+            return $types[IMAGETYPE_UNKNOWN];
         }
+
+        return $types[$type];
     }
 }

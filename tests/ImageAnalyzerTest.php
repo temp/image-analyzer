@@ -23,8 +23,6 @@ class ImageAnalyzerTest extends \PHPUnit_Framework_TestCase
 {
     public function testSupports()
     {
-        $info = new ImageInfo();
-
         $driver = $this->prophesize('Temp\ImageAnalyzer\Driver\DriverInterface');
         $driver->supports('test')->willReturn(true);
 

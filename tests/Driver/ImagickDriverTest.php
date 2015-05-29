@@ -126,7 +126,7 @@ class ImagickDriverTest extends \PHPUnit_Framework_TestCase
                 'resolutionX' => '0.0',
                 'resolutionY' => '0.0',
                 'type'        => 'TRUECOLOR',
-                'units'       => null,
+                'units'       => 'undefined',
                 'width'       => '466',
             )),
             array(__DIR__ . '/../fixture/file_cmyk.jpg', array(
@@ -144,7 +144,7 @@ class ImagickDriverTest extends \PHPUnit_Framework_TestCase
                 'resolutionX' => '0.0',
                 'resolutionY' => '0.0',
                 'type'        => 'COLORSEPARATION',
-                'units'       => null,
+                'units'       => 'undefined',
                 'width'       => '466',
             )),
             array(__DIR__ . '/../fixture/file.gif', array(
@@ -162,7 +162,7 @@ class ImagickDriverTest extends \PHPUnit_Framework_TestCase
                 'resolutionX' => '0',
                 'resolutionY' => '0',
                 'type'        => 'PALETTE',
-                'units'       => null,
+                'units'       => 'undefined',
                 'width'       => '466',
             )),
             array(__DIR__ . '/../fixture/file.png', array(
@@ -180,7 +180,7 @@ class ImagickDriverTest extends \PHPUnit_Framework_TestCase
                 'resolutionX' => '0.0',
                 'resolutionY' => '0.0',
                 'type'        => 'TRUECOLOR',
-                'units'       => null,
+                'units'       => 'undefined',
                 'width'       => '466',
             )),
         );

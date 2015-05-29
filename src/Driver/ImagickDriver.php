@@ -79,53 +79,49 @@ class ImagickDriver implements DriverInterface
     /**
      * @param int $units
      *
-     * @return null|string
+     * @return string
      */
     private function mapUnits($units)
     {
-        switch ($units) {
-            case Imagick::RESOLUTION_PIXELSPERCENTIMETER:
-                return 'PixelsPerCentimeter';
-            case Imagick::RESOLUTION_PIXELSPERINCH:
-                return 'PixelsPerInch';
-            case Imagick::RESOLUTION_UNDEFINED:
-                return null;
+        $imagickUnits = array(
+            Imagick::RESOLUTION_PIXELSPERCENTIMETER => 'PixelsPerCentimeter',
+            Imagick::RESOLUTION_PIXELSPERINCH => 'PixelsPerInch',
+            Imagick::RESOLUTION_UNDEFINED => 'undefined',
+        );
+
+        if (!isset($imagickUnits[$units])) {
+            return $imagickUnits[Imagick::RESOLUTION_UNDEFINED];
         }
+
+        return $imagickUnits[$units];
     }
 
     /**
      * @param int $type
      *
-     * @return null|string
+     * @return string
      */
     private function mapType($type)
     {
+        $types = array(
+            Imagick::IMGTYPE_BILEVEL => 'BILEVEL',
+            Imagick::IMGTYPE_GRAYSCALE => 'GRAYSCALE',
+            Imagick::IMGTYPE_GRAYSCALEMATTE => 'GRAYSCALEMATTE',
+            Imagick::IMGTYPE_PALETTE => 'PALETTE',
+            Imagick::IMGTYPE_PALETTEMATTE => 'PALETTEMATTE',
+            Imagick::IMGTYPE_TRUECOLOR => 'TRUECOLOR',
+            Imagick::IMGTYPE_TRUECOLORMATTE => 'TRUECOLORMATTE',
+            Imagick::IMGTYPE_COLORSEPARATION => 'COLORSEPARATION',
+            Imagick::IMGTYPE_COLORSEPARATIONMATTE => 'COLORSEPARATIONMATTE',
+            Imagick::IMGTYPE_OPTIMIZE => 'OPTIMIZE',
+            Imagick::IMGTYPE_UNDEFINED => 'UNDEFINED',
+        );
 
-        switch ($type) {
-            case Imagick::IMGTYPE_BILEVEL:
-                return 'BILEVEL';
-            case Imagick::IMGTYPE_GRAYSCALE:
-                return 'GRAYSCALE';
-            case Imagick::IMGTYPE_GRAYSCALEMATTE:
-                return 'GRAYSCALEMATTE';
-            case Imagick::IMGTYPE_PALETTE:
-                return 'PALETTE';
-            case Imagick::IMGTYPE_PALETTEMATTE:
-                return 'PALETTEMATTE';
-            case Imagick::IMGTYPE_TRUECOLOR:
-                return 'TRUECOLOR';
-            case Imagick::IMGTYPE_TRUECOLORMATTE:
-                return 'TRUECOLORMATTE';
-            case Imagick::IMGTYPE_COLORSEPARATION:
-                return 'COLORSEPARATION';
-            case Imagick::IMGTYPE_COLORSEPARATIONMATTE:
-                return 'COLORSEPARATIONMATTE';
-            case Imagick::IMGTYPE_OPTIMIZE:
-                return 'OPTIMIZE';
-            case Imagick::IMGTYPE_UNDEFINED:
-            default:
-                return null;
+        if (!isset($types[$type])) {
+            return $types[Imagick::IMGTYPE_UNDEFINED];
         }
+
+        return $types[$type];
     }
 
     /**
@@ -135,50 +131,34 @@ class ImagickDriver implements DriverInterface
      */
     private function mapColorspace($colorspace)
     {
-        switch ($colorspace) {
-            case Imagick::COLORSPACE_CMY:
-                return 'CMY';
-            case Imagick::COLORSPACE_CMYK:
-                return 'CMYK';
-            case Imagick::COLORSPACE_GRAY:
-                return 'GRAY';
-            case Imagick::COLORSPACE_HSB:
-                return 'HSB';
-            case Imagick::COLORSPACE_HSL:
-                return 'HSL';
-            case Imagick::COLORSPACE_HWB:
-                return 'HWB';
-            case Imagick::COLORSPACE_LAB:
-                return 'LAB';
-            case Imagick::COLORSPACE_LOG:
-                return 'LOG';
-            case Imagick::COLORSPACE_OHTA:
-                return 'OHTA';
-            case Imagick::COLORSPACE_REC601LUMA:
-                return 'REC601LUMA';
-            case Imagick::COLORSPACE_RGB:
-                return 'RGB';
-            case Imagick::COLORSPACE_REC709LUMA:
-                return 'REC709LUMA';
-            case Imagick::COLORSPACE_SRGB:
-                return 'SRGB';
-            case Imagick::COLORSPACE_TRANSPARENT:
-                return 'TRANSPARENT';
-            case Imagick::COLORSPACE_XYZ:
-                return 'XYZ';
-            case Imagick::COLORSPACE_YCBCR:
-                return 'YCBCR';
-            case Imagick::COLORSPACE_YCC:
-                return 'YCC';
-            case Imagick::COLORSPACE_YIQ:
-                return 'YIQ';
-            case Imagick::COLORSPACE_YPBPR:
-                return 'YPBPR';
-            case Imagick::COLORSPACE_YUV:
-                return 'YUV';
-            case Imagick::COLORSPACE_UNDEFINED:
-            default:
-                return null;
+        $colorspaces = array(
+            Imagick::COLORSPACE_CMY => 'CMY',
+            Imagick::COLORSPACE_CMYK => 'CMYK',
+            Imagick::COLORSPACE_GRAY => 'GRAY',
+            Imagick::COLORSPACE_HSB => 'HSB',
+            Imagick::COLORSPACE_HSL => 'HSL',
+            Imagick::COLORSPACE_HWB => 'HWB',
+            Imagick::COLORSPACE_LAB => 'LAB',
+            Imagick::COLORSPACE_LOG => 'LOG',
+            Imagick::COLORSPACE_OHTA => 'OHTA',
+            Imagick::COLORSPACE_REC601LUMA => 'REC601LUMA',
+            Imagick::COLORSPACE_RGB => 'RGB',
+            Imagick::COLORSPACE_REC709LUMA => 'REC709LUMA',
+            Imagick::COLORSPACE_SRGB => 'SRGB',
+            Imagick::COLORSPACE_TRANSPARENT => 'TRANSPARENT',
+            Imagick::COLORSPACE_XYZ => 'XYZ',
+            Imagick::COLORSPACE_YCBCR => 'YCBCR',
+            Imagick::COLORSPACE_YCC => 'YCC',
+            Imagick::COLORSPACE_YIQ => 'YIQ',
+            Imagick::COLORSPACE_YPBPR => 'YPBPR',
+            Imagick::COLORSPACE_YUV => 'YUV',
+            Imagick::COLORSPACE_UNDEFINED =>  'UNDEFINED',
+        );
+
+        if (!isset($colorspaces[$colorspace])) {
+            return $colorspaces[Imagick::COLORSPACE_UNDEFINED];
         }
+
+        return $colorspaces[$colorspace];
     }
 }

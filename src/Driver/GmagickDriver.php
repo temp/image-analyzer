@@ -76,18 +76,21 @@ class GmagickDriver implements DriverInterface
     /**
      * @param int $units
      *
-     * @return null|string
+     * @return string
      */
     private function mapUnits($units)
     {
-        switch ($units) {
-            case Gmagick::RESOLUTION_PIXELSPERCENTIMETER:
-                return 'PixelsPerCentimeter';
-            case Gmagick::RESOLUTION_PIXELSPERINCH:
-                return 'PixelsPerInch';
-            case Gmagick::RESOLUTION_UNDEFINED:
-                return null;
+        $gmagickUnits = array(
+            Gmagick::RESOLUTION_PIXELSPERCENTIMETER => 'PixelsPerCentimeter',
+            Gmagick::RESOLUTION_PIXELSPERINCH => 'PixelsPerInch',
+            Gmagick::RESOLUTION_UNDEFINED => 'undefined',
+        );
+
+        if (!isset($gmagickUnits[$units])) {
+            return $gmagickUnits[Gmagick::RESOLUTION_UNDEFINED];
         }
+
+        return $gmagickUnits[$units];
     }
 
     /**
@@ -97,31 +100,25 @@ class GmagickDriver implements DriverInterface
      */
     private function mapType($type)
     {
-        switch ($type) {
-            case Gmagick::IMGTYPE_BILEVEL:
-                return 'BILEVEL';
-            case Gmagick::IMGTYPE_GRAYSCALE:
-                return 'GRAYSCALE';
-            case Gmagick::IMGTYPE_GRAYSCALEMATTE:
-                return 'GRAYSCALEMATTE';
-            case Gmagick::IMGTYPE_PALETTE:
-                return 'PALETTE';
-            case Gmagick::IMGTYPE_PALETTEMATTE:
-                return 'PALETTEMATTE';
-            case Gmagick::IMGTYPE_TRUECOLOR:
-                return 'TRUECOLOR';
-            case Gmagick::IMGTYPE_TRUECOLORMATTE:
-                return 'TRUECOLORMATTE';
-            case Gmagick::IMGTYPE_COLORSEPARATION:
-                return 'COLORSEPARATION';
-            case Gmagick::IMGTYPE_COLORSEPARATIONMATTE:
-                return 'COLORSEPARATIONMATTE';
-            case Gmagick::IMGTYPE_OPTIMIZE:
-                return 'OPTIMIZE';
-            case Gmagick::IMGTYPE_UNDEFINED:
-            default:
-                return 'UNDEFINED';
+        $types = array(
+            Gmagick::IMGTYPE_BILEVEL => 'BILEVEL',
+            Gmagick::IMGTYPE_GRAYSCALE => 'GRAYSCALE',
+            Gmagick::IMGTYPE_GRAYSCALEMATTE => 'GRAYSCALEMATTE',
+            Gmagick::IMGTYPE_PALETTE => 'PALETTE',
+            Gmagick::IMGTYPE_PALETTEMATTE => 'PALETTEMATTE',
+            Gmagick::IMGTYPE_TRUECOLOR => 'TRUECOLOR',
+            Gmagick::IMGTYPE_TRUECOLORMATTE => 'TRUECOLORMATTE',
+            Gmagick::IMGTYPE_COLORSEPARATION => 'COLORSEPARATION',
+            Gmagick::IMGTYPE_COLORSEPARATIONMATTE => 'COLORSEPARATIONMATTE',
+            Gmagick::IMGTYPE_OPTIMIZE => 'OPTIMIZE',
+            Gmagick::IMGTYPE_UNDEFINED => 'UNDEFINED',
+        );
+
+        if (!isset($types[$type])) {
+            return $types[Gmagick::IMGTYPE_UNDEFINED];
         }
+
+        return $types[$type];
     }
 
     /**
@@ -131,42 +128,31 @@ class GmagickDriver implements DriverInterface
      */
     private function mapColorspace($colorspace)
     {
-        switch ($colorspace) {
-            case Gmagick::COLORSPACE_CMYK:
-                return 'CMYK';
-            case Gmagick::COLORSPACE_GRAY:
-                return 'GRAY';
-            case Gmagick::COLORSPACE_HSL:
-                return 'HSL';
-            case Gmagick::COLORSPACE_HWB:
-                return 'HWB';
-            case Gmagick::COLORSPACE_LAB:
-                return 'LAB';
-            case Gmagick::COLORSPACE_OHTA:
-                return 'OHTA';
-            case Gmagick::COLORSPACE_RGB:
-                return 'RGB';
-            case Gmagick::COLORSPACE_REC709LUMA:
-                return 'REC709LUMA';
-            case Gmagick::COLORSPACE_SRGB:
-                return 'SRGB';
-            case Gmagick::COLORSPACE_TRANSPARENT:
-                return 'TRANSPARENT';
-            case Gmagick::COLORSPACE_XYZ:
-                return 'XYZ';
-            case Gmagick::COLORSPACE_YCBCR:
-                return 'YCBCR';
-            case Gmagick::COLORSPACE_YCC:
-                return 'YCC';
-            case Gmagick::COLORSPACE_YIQ:
-                return 'YIQ';
-            case Gmagick::COLORSPACE_YPBPR:
-                return 'YPBPR';
-            case Gmagick::COLORSPACE_YUV:
-                return 'YUV';
-            case Gmagick::COLORSPACE_UNDEFINED:
-            default:
-                return 'UNDEFINED';
+        $colorspaces = array(
+            Gmagick::COLORSPACE_CMYK => 'CMYK',
+            Gmagick::COLORSPACE_GRAY => 'GRAY',
+            Gmagick::COLORSPACE_HSL => 'HSL',
+            Gmagick::COLORSPACE_HWB => 'HWB',
+            Gmagick::COLORSPACE_LAB => 'LAB',
+            Gmagick::COLORSPACE_OHTA => 'OHTA',
+            Gmagick::COLORSPACE_RGB => 'RGB',
+            //Gmagick::COLORSPACE_REC709LUMA => 'REC709LUMA',
+            Gmagick::COLORSPACE_SRGB => 'SRGB',
+            Gmagick::COLORSPACE_TRANSPARENT => 'TRANSPARENT',
+            Gmagick::COLORSPACE_XYZ => 'XYZ',
+            Gmagick::COLORSPACE_YCBCR => 'YCBCR',
+            Gmagick::COLORSPACE_YCC => 'YCC',
+            Gmagick::COLORSPACE_YIQ => 'YIQ',
+            Gmagick::COLORSPACE_YPBPR => 'YPBPR',
+            Gmagick::COLORSPACE_YUV => 'YUV',
+            Gmagick::COLORSPACE_UNDEFINED => 'UNDEFINED',
+        );
+
+
+        if (!isset($colorspaces[$colorspace])) {
+            return $colorspaces[Gmagick::COLORSPACE_UNDEFINED];
         }
+
+        return $colorspaces[$colorspace];
     }
 }
