@@ -14,7 +14,7 @@ namespace Temp\ImageAnalyzer;
 use Temp\ImageAnalyzer\Driver\DriverInterface;
 
 /**
- * Image analyzer
+ * Image analyzer.
  *
  * @author Stephan Wentz <stephan@wentz.it>
  */

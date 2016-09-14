@@ -15,7 +15,7 @@ use Temp\ImageAnalyzer\ImageAnalyzer;
 use Temp\ImageAnalyzer\ImageInfo;
 
 /**
- * Image analyzer
+ * Image analyzer.
  *
  * @author Stephan Wentz <stephan@wentz.it>
  */

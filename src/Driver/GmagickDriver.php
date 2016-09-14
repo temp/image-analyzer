@@ -16,7 +16,7 @@ use Temp\ImageAnalyzer\Exception\UnsupportedFileException;
 use Temp\ImageAnalyzer\ImageInfo;
 
 /**
- * Imagick extension image analyzer driver
+ * Imagick extension image analyzer driver.
  *
  * @author Stephan Wentz <stephan@wentz.it>
  */
@@ -54,7 +54,7 @@ class GmagickDriver implements DriverInterface
         try {
             $gmagick = new Gmagick($filename);
         } catch (\Exception $e) {
-            throw new UnsupportedFileException("File type not supported.", 0, $e);
+            throw new UnsupportedFileException('File type not supported.', 0, $e);
         }
 
         $imageInfo
@@ -80,11 +80,11 @@ class GmagickDriver implements DriverInterface
      */
     private function mapUnits($units)
     {
-        $gmagickUnits = array(
+        $gmagickUnits = [
             Gmagick::RESOLUTION_PIXELSPERCENTIMETER => 'PixelsPerCentimeter',
-            Gmagick::RESOLUTION_PIXELSPERINCH => 'PixelsPerInch',
-            Gmagick::RESOLUTION_UNDEFINED => 'undefined',
-        );
+            Gmagick::RESOLUTION_PIXELSPERINCH       => 'PixelsPerInch',
+            Gmagick::RESOLUTION_UNDEFINED           => 'undefined',
+        ];
 
         if (!isset($gmagickUnits[$units])) {
             return $gmagickUnits[Gmagick::RESOLUTION_UNDEFINED];
@@ -100,19 +100,19 @@ class GmagickDriver implements DriverInterface
      */
     private function mapType($type)
     {
-        $types = array(
-            Gmagick::IMGTYPE_BILEVEL => 'BILEVEL',
-            Gmagick::IMGTYPE_GRAYSCALE => 'GRAYSCALE',
-            Gmagick::IMGTYPE_GRAYSCALEMATTE => 'GRAYSCALEMATTE',
-            Gmagick::IMGTYPE_PALETTE => 'PALETTE',
-            Gmagick::IMGTYPE_PALETTEMATTE => 'PALETTEMATTE',
-            Gmagick::IMGTYPE_TRUECOLOR => 'TRUECOLOR',
-            Gmagick::IMGTYPE_TRUECOLORMATTE => 'TRUECOLORMATTE',
-            Gmagick::IMGTYPE_COLORSEPARATION => 'COLORSEPARATION',
+        $types = [
+            Gmagick::IMGTYPE_BILEVEL              => 'BILEVEL',
+            Gmagick::IMGTYPE_GRAYSCALE            => 'GRAYSCALE',
+            Gmagick::IMGTYPE_GRAYSCALEMATTE       => 'GRAYSCALEMATTE',
+            Gmagick::IMGTYPE_PALETTE              => 'PALETTE',
+            Gmagick::IMGTYPE_PALETTEMATTE         => 'PALETTEMATTE',
+            Gmagick::IMGTYPE_TRUECOLOR            => 'TRUECOLOR',
+            Gmagick::IMGTYPE_TRUECOLORMATTE       => 'TRUECOLORMATTE',
+            Gmagick::IMGTYPE_COLORSEPARATION      => 'COLORSEPARATION',
             Gmagick::IMGTYPE_COLORSEPARATIONMATTE => 'COLORSEPARATIONMATTE',
-            Gmagick::IMGTYPE_OPTIMIZE => 'OPTIMIZE',
-            Gmagick::IMGTYPE_UNDEFINED => 'UNDEFINED',
-        );
+            Gmagick::IMGTYPE_OPTIMIZE             => 'OPTIMIZE',
+            Gmagick::IMGTYPE_UNDEFINED            => 'UNDEFINED',
+        ];
 
         if (!isset($types[$type])) {
             return $types[Gmagick::IMGTYPE_UNDEFINED];
@@ -122,31 +122,31 @@ class GmagickDriver implements DriverInterface
     }
 
     /**
-     * @param integer $colorspace
+     * @param int $colorspace
      *
      * @return string
      */
     private function mapColorspace($colorspace)
     {
-        $colorspaces = array(
+        $colorspaces = [
             Gmagick::COLORSPACE_CMYK => 'CMYK',
             Gmagick::COLORSPACE_GRAY => 'GRAY',
-            Gmagick::COLORSPACE_HSL => 'HSL',
-            Gmagick::COLORSPACE_HWB => 'HWB',
-            Gmagick::COLORSPACE_LAB => 'LAB',
+            Gmagick::COLORSPACE_HSL  => 'HSL',
+            Gmagick::COLORSPACE_HWB  => 'HWB',
+            Gmagick::COLORSPACE_LAB  => 'LAB',
             Gmagick::COLORSPACE_OHTA => 'OHTA',
-            Gmagick::COLORSPACE_RGB => 'RGB',
+            Gmagick::COLORSPACE_RGB  => 'RGB',
             //Gmagick::COLORSPACE_REC709LUMA => 'REC709LUMA',
-            Gmagick::COLORSPACE_SRGB => 'SRGB',
+            Gmagick::COLORSPACE_SRGB        => 'SRGB',
             Gmagick::COLORSPACE_TRANSPARENT => 'TRANSPARENT',
-            Gmagick::COLORSPACE_XYZ => 'XYZ',
-            Gmagick::COLORSPACE_YCBCR => 'YCBCR',
-            Gmagick::COLORSPACE_YCC => 'YCC',
-            Gmagick::COLORSPACE_YIQ => 'YIQ',
-            Gmagick::COLORSPACE_YPBPR => 'YPBPR',
-            Gmagick::COLORSPACE_YUV => 'YUV',
-            Gmagick::COLORSPACE_UNDEFINED => 'UNDEFINED',
-        );
+            Gmagick::COLORSPACE_XYZ         => 'XYZ',
+            Gmagick::COLORSPACE_YCBCR       => 'YCBCR',
+            Gmagick::COLORSPACE_YCC         => 'YCC',
+            Gmagick::COLORSPACE_YIQ         => 'YIQ',
+            Gmagick::COLORSPACE_YPBPR       => 'YPBPR',
+            Gmagick::COLORSPACE_YUV         => 'YUV',
+            Gmagick::COLORSPACE_UNDEFINED   => 'UNDEFINED',
+        ];
 
 
         if (!isset($colorspaces[$colorspace])) {

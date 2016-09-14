@@ -14,7 +14,7 @@ namespace Temp\ImageAnalyzer\Tests\Driver;
 use Temp\ImageAnalyzer\Driver\GmagickDriver;
 
 /**
- * Gmagick driver test
+ * Gmagick driver test.
  *
  * @author Stephan Wentz <stephan@wentz.it>
  *
@@ -48,7 +48,7 @@ class GmagickDriverTest extends \PHPUnit_Framework_TestCase
     {
         $driver = new GmagickDriver();
 
-        $this->assertFalse($driver->supports(__DIR__ . '/../fixture/file.unknown'));
+        $this->assertFalse($driver->supports(__DIR__.'/../fixture/file.unknown'));
     }
 
     /**
@@ -58,7 +58,7 @@ class GmagickDriverTest extends \PHPUnit_Framework_TestCase
     {
         $driver = new GmagickDriver();
 
-        $driver->analyze(__DIR__ . '/../fixture/file.unknown');
+        $driver->analyze(__DIR__.'/../fixture/file.unknown');
     }
 
     /**
@@ -92,8 +92,8 @@ class GmagickDriverTest extends \PHPUnit_Framework_TestCase
 
     public function imageProvider()
     {
-        return array(
-            array(__DIR__ . '/../fixture/file.jpg', array(
+        return [
+            [__DIR__.'/../fixture/file.jpg', [
                 'analyzer'    => 'Temp\ImageAnalyzer\Driver\GmagickDriver',
                 'colors'      => '69964',
                 'colorspace'  => 'RGB',
@@ -101,7 +101,7 @@ class GmagickDriverTest extends \PHPUnit_Framework_TestCase
                 'depth'       => '8',
                 'format'      => 'JPEG',
                 'height'      => '350',
-                'profiles'    => array(),
+                'profiles'    => [],
                 'quality'     => null,
                 'ratioX'      => '1.3314285714285714',
                 'ratioY'      => '0.75107296137339052',
@@ -110,8 +110,8 @@ class GmagickDriverTest extends \PHPUnit_Framework_TestCase
                 'type'        => 'TRUECOLOR',
                 'units'       => 'undefined',
                 'width'       => '466',
-            )),
-            array(__DIR__ . '/../fixture/file_cmyk.jpg', array(
+            ]],
+            [__DIR__.'/../fixture/file_cmyk.jpg', [
                 'analyzer'    => 'Temp\ImageAnalyzer\Driver\GmagickDriver',
                 'colors'      => '39708',
                 'colorspace'  => 'CMYK',
@@ -119,7 +119,7 @@ class GmagickDriverTest extends \PHPUnit_Framework_TestCase
                 'depth'       => '8',
                 'format'      => 'JPEG',
                 'height'      => '350',
-                'profiles'    => array(),
+                'profiles'    => [],
                 'quality'     => null,
                 'ratioX'      => '1.3314285714285714',
                 'ratioY'      => '0.75107296137339052',
@@ -128,8 +128,8 @@ class GmagickDriverTest extends \PHPUnit_Framework_TestCase
                 'type'        => 'COLORSEPARATION',
                 'units'       => 'undefined',
                 'width'       => '466',
-            )),
-            array(__DIR__ . '/../fixture/file.gif', array(
+            ]],
+            [__DIR__.'/../fixture/file.gif', [
                 'analyzer'    => 'Temp\ImageAnalyzer\Driver\GmagickDriver',
                 'colors'      => '255',
                 'colorspace'  => 'RGB',
@@ -137,7 +137,7 @@ class GmagickDriverTest extends \PHPUnit_Framework_TestCase
                 'depth'       => '8',
                 'format'      => 'GIF',
                 'height'      => '350',
-                'profiles'    => array(),
+                'profiles'    => [],
                 'quality'     => null,
                 'ratioX'      => '1.3314285714285714',
                 'ratioY'      => '0.75107296137339052',
@@ -146,8 +146,8 @@ class GmagickDriverTest extends \PHPUnit_Framework_TestCase
                 'type'        => 'PALETTE',
                 'units'       => 'undefined',
                 'width'       => '466',
-            )),
-            array(__DIR__ . '/../fixture/file.png', array(
+            ]],
+            [__DIR__.'/../fixture/file.png', [
                 'analyzer'    => 'Temp\ImageAnalyzer\Driver\GmagickDriver',
                 'colors'      => '69955',
                 'colorspace'  => 'RGB',
@@ -155,7 +155,7 @@ class GmagickDriverTest extends \PHPUnit_Framework_TestCase
                 'depth'       => '8',
                 'format'      => 'PNG',
                 'height'      => '350',
-                'profiles'    => array(),
+                'profiles'    => [],
                 'quality'     => null,
                 'ratioX'      => '1.3314285714285714',
                 'ratioY'      => '0.75107296137339052',
@@ -164,7 +164,7 @@ class GmagickDriverTest extends \PHPUnit_Framework_TestCase
                 'type'        => 'TRUECOLOR',
                 'units'       => 'undefined',
                 'width'       => '466',
-            )),
-        );
+            ]],
+        ];
     }
 }

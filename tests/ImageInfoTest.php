@@ -14,7 +14,7 @@ namespace Temp\ImageAnalyzer\Tests;
 use Temp\ImageAnalyzer\ImageInfo;
 
 /**
- * Image info test
+ * Image info test.
  *
  * @author Stephan Wentz <stephan@wentz.it>
  */

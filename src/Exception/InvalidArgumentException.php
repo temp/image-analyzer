@@ -12,7 +12,7 @@
 namespace Temp\ImageAnalyzer\Exception;
 
 /**
- * Invalid argument exception
+ * Invalid argument exception.
  *
  * @author Stephan Wentz <stephan@wentz.it>
  */

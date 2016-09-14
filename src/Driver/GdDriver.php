@@ -15,7 +15,7 @@ use Temp\ImageAnalyzer\Exception\UnsupportedFileException;
 use Temp\ImageAnalyzer\ImageInfo;
 
 /**
- * GD image analyzer driver
+ * GD image analyzer driver.
  *
  * @author Stephan Wentz <stephan@wentz.it>
  */
@@ -44,7 +44,7 @@ class GdDriver implements DriverInterface
     {
         $imageSize = @getimagesize($filename);
         if ($imageSize === false) {
-            throw new UnsupportedFileException("File type not supported.");
+            throw new UnsupportedFileException('File type not supported.');
         }
 
         $imageInfo = new ImageInfo();
@@ -92,7 +92,7 @@ class GdDriver implements DriverInterface
      */
     private function mapFormat($type)
     {
-        $types = array(
+        $types = [
             IMAGETYPE_BMP      => 'BMP',
             IMAGETYPE_COUNT    => 'COUNT',
             IMAGETYPE_GIF      => 'GIF',
@@ -113,7 +113,7 @@ class GdDriver implements DriverInterface
             IMAGETYPE_WBMP     => 'WBMP',
             IMAGETYPE_XBM      => 'XBM',
             IMAGETYPE_UNKNOWN  => 'UNKNOWN',
-        );
+        ];
 
         if (!isset($types[$type])) {
             return $types[IMAGETYPE_UNKNOWN];
