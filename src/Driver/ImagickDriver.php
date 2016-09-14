@@ -16,7 +16,7 @@ use Temp\ImageAnalyzer\Exception\UnsupportedFileException;
 use Temp\ImageAnalyzer\ImageInfo;
 
 /**
- * Imagick extension image analyzer driver
+ * Imagick extension image analyzer driver.
  *
  * @author Stephan Wentz <stephan@wentz.it>
  */
@@ -52,7 +52,7 @@ class ImagickDriver implements DriverInterface
         try {
             $imagick = new Imagick($filename);
         } catch (\Exception $e) {
-            throw new UnsupportedFileException("File type not supported.", 0, $e);
+            throw new UnsupportedFileException('File type not supported.', 0, $e);
         }
 
         $imageInfo = new ImageInfo();
@@ -83,11 +83,11 @@ class ImagickDriver implements DriverInterface
      */
     private function mapUnits($units)
     {
-        $imagickUnits = array(
+        $imagickUnits = [
             Imagick::RESOLUTION_PIXELSPERCENTIMETER => 'PixelsPerCentimeter',
-            Imagick::RESOLUTION_PIXELSPERINCH => 'PixelsPerInch',
-            Imagick::RESOLUTION_UNDEFINED => 'undefined',
-        );
+            Imagick::RESOLUTION_PIXELSPERINCH       => 'PixelsPerInch',
+            Imagick::RESOLUTION_UNDEFINED           => 'undefined',
+        ];
 
         if (!isset($imagickUnits[$units])) {
             return $imagickUnits[Imagick::RESOLUTION_UNDEFINED];
@@ -103,19 +103,19 @@ class ImagickDriver implements DriverInterface
      */
     private function mapType($type)
     {
-        $types = array(
-            Imagick::IMGTYPE_BILEVEL => 'BILEVEL',
-            Imagick::IMGTYPE_GRAYSCALE => 'GRAYSCALE',
-            Imagick::IMGTYPE_GRAYSCALEMATTE => 'GRAYSCALEMATTE',
-            Imagick::IMGTYPE_PALETTE => 'PALETTE',
-            Imagick::IMGTYPE_PALETTEMATTE => 'PALETTEMATTE',
-            Imagick::IMGTYPE_TRUECOLOR => 'TRUECOLOR',
-            Imagick::IMGTYPE_TRUECOLORMATTE => 'TRUECOLORMATTE',
-            Imagick::IMGTYPE_COLORSEPARATION => 'COLORSEPARATION',
+        $types = [
+            Imagick::IMGTYPE_BILEVEL              => 'BILEVEL',
+            Imagick::IMGTYPE_GRAYSCALE            => 'GRAYSCALE',
+            Imagick::IMGTYPE_GRAYSCALEMATTE       => 'GRAYSCALEMATTE',
+            Imagick::IMGTYPE_PALETTE              => 'PALETTE',
+            Imagick::IMGTYPE_PALETTEMATTE         => 'PALETTEMATTE',
+            Imagick::IMGTYPE_TRUECOLOR            => 'TRUECOLOR',
+            Imagick::IMGTYPE_TRUECOLORMATTE       => 'TRUECOLORMATTE',
+            Imagick::IMGTYPE_COLORSEPARATION      => 'COLORSEPARATION',
             Imagick::IMGTYPE_COLORSEPARATIONMATTE => 'COLORSEPARATIONMATTE',
-            Imagick::IMGTYPE_OPTIMIZE => 'OPTIMIZE',
-            Imagick::IMGTYPE_UNDEFINED => 'UNDEFINED',
-        );
+            Imagick::IMGTYPE_OPTIMIZE             => 'OPTIMIZE',
+            Imagick::IMGTYPE_UNDEFINED            => 'UNDEFINED',
+        ];
 
         if (!isset($types[$type])) {
             return $types[Imagick::IMGTYPE_UNDEFINED];
@@ -125,35 +125,35 @@ class ImagickDriver implements DriverInterface
     }
 
     /**
-     * @param integer $colorspace
+     * @param int $colorspace
      *
      * @return null|string
      */
     private function mapColorspace($colorspace)
     {
-        $colorspaces = array(
-            Imagick::COLORSPACE_CMY => 'CMY',
-            Imagick::COLORSPACE_CMYK => 'CMYK',
-            Imagick::COLORSPACE_GRAY => 'GRAY',
-            Imagick::COLORSPACE_HSB => 'HSB',
-            Imagick::COLORSPACE_HSL => 'HSL',
-            Imagick::COLORSPACE_HWB => 'HWB',
-            Imagick::COLORSPACE_LAB => 'LAB',
-            Imagick::COLORSPACE_LOG => 'LOG',
-            Imagick::COLORSPACE_OHTA => 'OHTA',
-            Imagick::COLORSPACE_REC601LUMA => 'REC601LUMA',
-            Imagick::COLORSPACE_RGB => 'RGB',
-            Imagick::COLORSPACE_REC709LUMA => 'REC709LUMA',
-            Imagick::COLORSPACE_SRGB => 'SRGB',
+        $colorspaces = [
+            Imagick::COLORSPACE_CMY         => 'CMY',
+            Imagick::COLORSPACE_CMYK        => 'CMYK',
+            Imagick::COLORSPACE_GRAY        => 'GRAY',
+            Imagick::COLORSPACE_HSB         => 'HSB',
+            Imagick::COLORSPACE_HSL         => 'HSL',
+            Imagick::COLORSPACE_HWB         => 'HWB',
+            Imagick::COLORSPACE_LAB         => 'LAB',
+            Imagick::COLORSPACE_LOG         => 'LOG',
+            Imagick::COLORSPACE_OHTA        => 'OHTA',
+            Imagick::COLORSPACE_REC601LUMA  => 'REC601LUMA',
+            Imagick::COLORSPACE_RGB         => 'RGB',
+            Imagick::COLORSPACE_REC709LUMA  => 'REC709LUMA',
+            Imagick::COLORSPACE_SRGB        => 'SRGB',
             Imagick::COLORSPACE_TRANSPARENT => 'TRANSPARENT',
-            Imagick::COLORSPACE_XYZ => 'XYZ',
-            Imagick::COLORSPACE_YCBCR => 'YCBCR',
-            Imagick::COLORSPACE_YCC => 'YCC',
-            Imagick::COLORSPACE_YIQ => 'YIQ',
-            Imagick::COLORSPACE_YPBPR => 'YPBPR',
-            Imagick::COLORSPACE_YUV => 'YUV',
-            Imagick::COLORSPACE_UNDEFINED =>  'UNDEFINED',
-        );
+            Imagick::COLORSPACE_XYZ         => 'XYZ',
+            Imagick::COLORSPACE_YCBCR       => 'YCBCR',
+            Imagick::COLORSPACE_YCC         => 'YCC',
+            Imagick::COLORSPACE_YIQ         => 'YIQ',
+            Imagick::COLORSPACE_YPBPR       => 'YPBPR',
+            Imagick::COLORSPACE_YUV         => 'YUV',
+            Imagick::COLORSPACE_UNDEFINED   => 'UNDEFINED',
+        ];
 
         if (!isset($colorspaces[$colorspace])) {
             return $colorspaces[Imagick::COLORSPACE_UNDEFINED];

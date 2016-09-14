@@ -12,7 +12,7 @@
 namespace Temp\ImageAnalyzer\Exception;
 
 /**
- * Unsupported file exception
+ * Unsupported file exception.
  *
  * @author Stephan Wentz <stephan@wentz.it>
  */

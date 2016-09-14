@@ -14,7 +14,7 @@ namespace Temp\ImageAnalyzer\Tests\Driver;
 use Temp\ImageAnalyzer\Driver\GdDriver;
 
 /**
- * GD driver test
+ * GD driver test.
  *
  * @author Stephan Wentz <stephan@wentz.it>
  *
@@ -46,7 +46,7 @@ class GdDriverTest extends \PHPUnit_Framework_TestCase
     {
         $driver = new GdDriver();
 
-        $this->assertFalse($driver->supports(__DIR__ . '/../fixture/file.unknown'));
+        $this->assertFalse($driver->supports(__DIR__.'/../fixture/file.unknown'));
     }
 
     /**
@@ -56,7 +56,7 @@ class GdDriverTest extends \PHPUnit_Framework_TestCase
     {
         $driver = new GdDriver();
 
-        $driver->analyze(__DIR__ . '/../fixture/file.unknown');
+        $driver->analyze(__DIR__.'/../fixture/file.unknown');
     }
 
     /**
@@ -90,8 +90,8 @@ class GdDriverTest extends \PHPUnit_Framework_TestCase
 
     public function imageProvider()
     {
-        return array(
-            array(__DIR__ . '/../fixture/file.jpg', array(
+        return [
+            [__DIR__.'/../fixture/file.jpg', [
                 'analyzer'    => 'Temp\ImageAnalyzer\Driver\GdDriver',
                 'colors'      => '0',
                 'colorspace'  => 'RGB',
@@ -108,8 +108,8 @@ class GdDriverTest extends \PHPUnit_Framework_TestCase
                 'type'        => 'TRUECOLOR',
                 'units'       => null,
                 'width'       => '466',
-            )),
-            array(__DIR__ . '/../fixture/file_cmyk.jpg', array(
+            ]],
+            [__DIR__.'/../fixture/file_cmyk.jpg', [
                 'analyzer'    => 'Temp\ImageAnalyzer\Driver\GdDriver',
                 'colors'      => '0',
                 'colorspace'  => 'CMYK',
@@ -126,8 +126,8 @@ class GdDriverTest extends \PHPUnit_Framework_TestCase
                 'type'        => 'TRUECOLOR',
                 'units'       => null,
                 'width'       => '466',
-            )),
-            array(__DIR__ . '/../fixture/file.gif', array(
+            ]],
+            [__DIR__.'/../fixture/file.gif', [
                 'analyzer'    => 'Temp\ImageAnalyzer\Driver\GdDriver',
                 'colors'      => '256',
                 'colorspace'  => 'RGB',
@@ -144,8 +144,8 @@ class GdDriverTest extends \PHPUnit_Framework_TestCase
                 'type'        => 'PALETTE',
                 'units'       => null,
                 'width'       => '466',
-            )),
-            array(__DIR__ . '/../fixture/file.png', array(
+            ]],
+            [__DIR__.'/../fixture/file.png', [
                 'analyzer'    => 'Temp\ImageAnalyzer\Driver\GdDriver',
                 'colors'      => '0',
                 'colorspace'  => 'RGB',
@@ -162,7 +162,7 @@ class GdDriverTest extends \PHPUnit_Framework_TestCase
                 'type'        => 'TRUECOLOR',
                 'units'       => null,
                 'width'       => '466',
-            )),
-        );
+            ]],
+        ];
     }
 }
